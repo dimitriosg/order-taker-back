@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 //import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import mailgun from 'mailgun-js';
+import mailgun from 'mailgun-js'; // Import mailgun-js module
+import sendEmail from '../utils/mail.js'; // Import mail.js module
 
 dotenv.config();
 
@@ -45,7 +46,7 @@ export const createUser = async (req, res) => {
     await newUser.save();
 
     // Send email for verification
-    mailgun.sendEmail(
+    sendEmail(
       newUser.email, 
       'Verify Your Email', 
       `Click here to verify: http://order-taker.dgalanopoulos.eu/verify-email/${emailVerificationToken}`
@@ -275,7 +276,7 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // Send email containing reset token using Mailgun
-    mailgun.sendEmail(
+    sendEmail(
         user.email, 
         'Password Reset', 
         `You requested a password reset. Click this link to set a new password: http://order-taker.dgalanopoulos.eu/reset-password/${resetToken}`

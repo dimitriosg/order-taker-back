@@ -1,8 +1,12 @@
 // mail.js
 import mailgun from 'mailgun-js';
+import { config } from 'dotenv';
+
+config();
 
 const DOMAIN = process.env.MAILGUN_DOMAIN;
-const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
+const API = process.env.MAILGUN_API_KEY;
+const mg = mailgun({ apiKey: API, domain: DOMAIN });
 
 function sendEmail(to, subject, text) {
     const data = {
@@ -17,4 +21,4 @@ function sendEmail(to, subject, text) {
     });
 }
 
-export { sendEmail };
+export default sendEmail;

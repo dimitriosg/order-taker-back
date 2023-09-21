@@ -1,7 +1,7 @@
 // invitations.controller.js
 import Invitation from '../models/invitations.model.js';
 import jwt from 'jsonwebtoken';
-import { sendEmail } from '../utils/mail.js';  // Assuming this is the correct path to your mail utility
+import sendEmail from '../utils/mail.js'; // Import mail.js module
 
 export const inviteUser = async (req, res) => {
     try {
