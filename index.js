@@ -14,9 +14,10 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI;
 const mongoURI = process.env.DATABASE_URL;
 
+// USED FOR LOCAL CONNECTION
+//const MONGODB_URI = process.env.MONGODB_URI;
 // Connect to MongoDB (local)
 //mongoose.connect(MONGODB_URI, {
 //  useNewUrlParser: true,
