@@ -1,10 +1,21 @@
 // accountLinking.controller.js
 import LinkedAccount from '../models/linkedAccounts.model.js';
+import User from '../models/User.js';
 
 export const linkAccount = async (req, res) => {
     try {
         const primaryUserId = req.user._id;
-        const secondaryUserId = req.body.secondaryUserId;
+        const secondaryEmail = req.body.secondaryEmail;
+
+        // Fetch the user with the secondaryEmail
+        const secondaryUser = await User.findOne({ email: secondaryEmail });
+
+        // Check if the secondary user exists
+        if (!secondaryUser) {
+            return res.status(404).json({ message: 'Secondary user not found.' });
+        }
+
+        const secondaryUserId = secondaryUser._id;
 
         const linkExists = await LinkedAccount.findOne({
             $or: [
