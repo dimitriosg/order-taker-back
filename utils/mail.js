@@ -17,7 +17,11 @@ function sendEmail(to, subject, text) {
     };
 
     mg.messages().send(data, (error, body) => {
-        console.log(body);
+        if (error) {
+            console.error('Error sending email:', error);
+        } else {
+            console.log('Mailgun Response:', body);
+        }
     });
 }
 
