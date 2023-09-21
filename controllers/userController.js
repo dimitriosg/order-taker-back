@@ -45,7 +45,7 @@ export const createUser = async (req, res) => {
     await newUser.save();
 
     // Send email for verification
-    mailer.sendEmail(
+    mailgun.sendEmail(
       newUser.email, 
       'Verify Your Email', 
       `Click here to verify: http://order-taker.dgalanopoulos.eu/verify-email/${emailVerificationToken}`
@@ -275,7 +275,7 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // Send email containing reset token using Mailgun
-    mailer.sendEmail(
+    mailgun.sendEmail(
         user.email, 
         'Password Reset', 
         `You requested a password reset. Click this link to set a new password: http://order-taker.dgalanopoulos.eu/reset-password/${resetToken}`
