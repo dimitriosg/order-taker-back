@@ -4,6 +4,7 @@ process.env.TZ = 'Europe/Athens';  // Setting timezone to GMT+3 (Athens)
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import routes from './routes/allRoutes.js';
 import { activityLogger } from './middleware/activityLogger.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
@@ -14,14 +15,19 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
+const mongoURI = process.env.DATABASE_URL;
 
-// Connect to MongoDB
+// Connect to MongoDB (local)
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
+
+// Connect to MongoDB (Atlas)
+mongoose.connect(mongoURI, { /* options */ });
+
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
