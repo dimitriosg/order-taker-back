@@ -49,7 +49,7 @@ router.post('/api/link-account', accountController.linkAccount);
 router.post('/api/unlink-account', accountController.unlinkAccount);
 
 // INVITATION ROUTES
-router.post('/api/invite', invitationController.inviteUser);
+router.post('/api/invite', authMiddleware, invitationController.inviteUser);
 /////////////////////////
 // ADMIN EXCLUSIVE ROUTES
 // Counters per role <<< ADMIN RIGHTS >>>
