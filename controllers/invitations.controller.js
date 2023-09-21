@@ -6,7 +6,7 @@ import sendEmail from '../utils/mail.js'; // Import mail.js module
 export const inviteUser = async (req, res) => {
     try {
         const email = req.body.email;
-        const invitedBy = req.user._id;
+        const invitedBy = req.user.id;
 
         const existingInvitation = await Invitation.findOne({ email, status: 'pending' });
         if (existingInvitation) {
