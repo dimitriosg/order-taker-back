@@ -45,11 +45,11 @@ router.post('/api/debug', (req, res) => {
 /////////////////////////
 // >>>> LINKING & INVITATION routes <<<<
 // ACCOUNT LINKING ROUTES
-router.use('/api/link-account', accountController.linkAccount);
-router.use('/api/unlink-account', accountController.unlinkAccount);
+router.post('/api/link-account', accountController.linkAccount);
+router.post('/api/unlink-account', accountController.unlinkAccount);
 
 // INVITATION ROUTES
-router.use('/api/invite', invitationController.inviteUser);
+router.post('/api/invite', invitationController.inviteUser);
 /////////////////////////
 // ADMIN EXCLUSIVE ROUTES
 // Counters per role <<< ADMIN RIGHTS >>>
