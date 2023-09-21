@@ -18,15 +18,20 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const mongoURI = process.env.DATABASE_URL;
 
 // Connect to MongoDB (local)
-mongoose.connect(MONGODB_URI, {
+//mongoose.connect(MONGODB_URI, {
+//  useNewUrlParser: true,
+//  useUnifiedTopology: true,
+//})
+//.then(() => console.log('MongoDB connected'))
+//.catch(err => console.log(err));
+
+// Connect to MongoDB (Atlas)
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB connected'))
+.then(() => console.log('MongoDB Atlas connected'))
 .catch(err => console.log(err));
-
-// Connect to MongoDB (Atlas)
-mongoose.connect(mongoURI, { /* options */ });
 
 
 // Middleware for parsing JSON bodies
