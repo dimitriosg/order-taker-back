@@ -6,7 +6,8 @@ import { authMiddleware } from '../middleware/authMiddleware.js';
 import * as funcSOS from '../utils/funcSOS.js';
 import { checkRole } from '../middleware/checkRole.js';
 import * as adminExc from '../utils/adminExc.js';
-
+import accountLinkingRoutes from './routes/accountLinking.routes.js';
+import invitationRoutes from './routes/invitations.routes.js';
 
 const router = express.Router();
 
@@ -41,7 +42,13 @@ router.post('/api/debug', (req, res) => {
     console.log("Debug Endpoint: ", req.body);
     res.json(req.body);
 });
+/////////////////////////
+// >>>> LINKING & INVITATION routes <<<<
+// ACCOUNT LINKING ROUTES
+app.use('/api/accounts', accountLinkingRoutes);
 
+// INVITATION ROUTES
+app.use('/api/invitations', invitationRoutes);
 /////////////////////////
 // ADMIN EXCLUSIVE ROUTES
 // Counters per role <<< ADMIN RIGHTS >>>
