@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Morango",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mailgun": "^0.5.0",
+    "mailgun-js": "^0.22.0",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.5.2",
+    "nodemailer": "^6.9.5",
+    "sib-api-v3-sdk": "^8.5.0"
+  }
+}
