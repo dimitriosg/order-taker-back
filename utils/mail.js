@@ -10,7 +10,7 @@ const mg = mailgun({ apiKey: API, domain: DOMAIN });
 
 function sendEmail(to, subject, text) {
     const data = {
-        from: 'Order Taker <no-reply@mg.order-taker.dgalanopoulos.eu>', // replace with your app's email
+        from: 'Order Taker <postmaster@mg.order-taker.dgalanopoulos.eu>', // replace with your app's email
         to: to,
         subject: subject,
         text: text
