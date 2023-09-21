@@ -1,7 +1,7 @@
 // invitations.controller.js
 import Invitation from '../models/invitations.model.js';
 import jwt from 'jsonwebtoken';
-import { sendMail } from '../utils/mail.js';  // Assuming this is the correct path to your mail utility
+import { sendEmail } from '../utils/mail.js';  // Assuming this is the correct path to your mail utility
 
 export const inviteUser = async (req, res) => {
     try {
@@ -27,7 +27,7 @@ export const inviteUser = async (req, res) => {
 
         // Send the email using your utility
         const inviteUrl = `https://order-taker.dgalanopoulos.eu/accept-invite?token=${token}`;
-        await sendMail(email, 'You are invited!', `Click here to accept the invitation: ${inviteUrl}`);
+        await sendEmail(email, 'You are invited!', `Click here to accept the invitation: ${inviteUrl}`);
 
         res.status(200).json({ message: 'Invitation sent successfully.' });
     } catch (error) {

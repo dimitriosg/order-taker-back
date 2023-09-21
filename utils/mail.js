@@ -17,4 +17,4 @@ function sendEmail(to, subject, text) {
     });
 }
 
-export default { sendEmail };
+export { sendEmail };
