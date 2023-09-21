@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 app.use(activityLogger); 
 
 // Middleware for CORS (if needed)
-// app.use(cors());
+app.use(cors());
 // OR
 //app.use(cors({
 //  origin: ['http://localhost:3000', 'https://myapp.com']
