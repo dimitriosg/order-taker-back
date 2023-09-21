@@ -2,9 +2,9 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import nodemailer from 'nodemailer';
+//import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import * as SibApiV3Sdk from 'sib-api-v3-sdk';
+import mailgun from 'mailgun-js';
 
 dotenv.config();
 
@@ -44,8 +44,12 @@ export const createUser = async (req, res) => {
     });
     await newUser.save();
 
-    // TODO: Send email for verification (this is pseudo code)
-    // sendEmailVerification(newUser.email, `Click here to verify: http://yourapp.com/verify-email/${emailVerificationToken}`);
+    // Send email for verification
+    mailer.sendEmail(
+      newUser.email, 
+      'Verify Your Email', 
+      `Click here to verify: http://order-taker.dgalanopoulos.eu/verify-email/${emailVerificationToken}`
+  );
 
     res.status(201).json(newUser);
   } catch (error) {
@@ -270,29 +274,12 @@ export const forgotPassword = async (req, res) => {
     user.resetTokenExpiration = Date.now() + 3600000;  // 1 hour
     await user.save();
 
-    // Initialize SendInBlue API
-    let defaultClient = SibApiV3Sdk.ApiClient.instance;
-    let apiKey = defaultClient.authentications['api-key'];
-    apiKey.apiKey = process.env.SENDINBLUE_API_KEY;
-
-    let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-
-    // Prepare email data
-    let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-    sendSmtpEmail.to = [{ email: user.email }];
-    sendSmtpEmail.subject = 'Password Reset';
-    sendSmtpEmail.htmlContent = `<p>You requested a password reset. Click this link to set a new password: <a href="http://localhost:5000/reset-password/${resetToken}">Reset Password</a></p>`;
-    sendSmtpEmail.sender = { email: 'me@dgalanopoulos.eu', name: 'Jim' };
-
-
-    // Send email containing reset token
-    apiInstance.sendTransacEmail(sendSmtpEmail).then( () => {
-      console.log('Email sent successfully');
-      res.status(200).json({ message: 'Reset token sent to email' });
-    }).catch( (error) => {
-      console.log("Error sending email:", error);
-      res.status(400).json({ message: 'Error in forgot password', error });
-    });
+    // Send email containing reset token using Mailgun
+    mailer.sendEmail(
+        user.email, 
+        'Password Reset', 
+        `You requested a password reset. Click this link to set a new password: http://order-taker.dgalanopoulos.eu/reset-password/${resetToken}`
+    );
 
   } catch (error) {
     console.log("Caught an error:", error);
