@@ -3,11 +3,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 //import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-import mailgun from 'mailgun-js'; // Import mailgun-js module
-import sendEmail from '../utils/mail.js'; // Import mail.js module
+//import mailgun from 'mailgun-js'; // Import mailgun-js module
+import { config } from 'dotenv';
 
-dotenv.config();
+config();
 
 // Function to create a new user
 export const createUser = async (req, res) => {
