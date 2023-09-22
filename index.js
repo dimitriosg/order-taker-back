@@ -49,7 +49,7 @@ app.use(activityLogger);
 
 // Middleware for CORS (if needed)
 app.use(cors());
-// OR
+// OR <<< for exclusive local use >>>>
 //app.use(cors({
 //  origin: ['http://localhost:3000', 'https://myapp.com']
 //}));
