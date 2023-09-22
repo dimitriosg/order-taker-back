@@ -1,7 +1,7 @@
 // invitations.controller.js
 import Invitation from '../models/invitations.model.js';
 import jwt from 'jsonwebtoken';
-import sendEmail from '../utils/mail.js'; // Import mail.js module
+import { sendEmail } from '../utils/emailSender.js';
 
 export const inviteUser = async (req, res) => {
     try {
