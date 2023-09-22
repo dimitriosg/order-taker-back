@@ -3,6 +3,7 @@ process.env.TZ = 'Europe/Athens';  // Setting timezone to GMT+3 (Athens)
 
 import express from 'express';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import routes from './routes/allRoutes.js';
 import { activityLogger } from './middleware/activityLogger.js';
