@@ -1,4 +1,4 @@
-import AwsSesAdapter from "./email/awsSesAdapter";
+import AwsSesAdapter from "./email/awsSesAdapter.js";
 
 const emailAdapter = AwsSesAdapter;
 
