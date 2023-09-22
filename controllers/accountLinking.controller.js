@@ -2,6 +2,7 @@
 import LinkedAccount from '../models/linkedAccounts.model.js';
 import User from '../models/User.js';
 
+// >>>> WILL BE USED TO LOGIN WITH SOCIAL MEDIA <<<< 
 export const linkAccount = async (req, res) => {
     try {
         const primaryUserId = req.user._id;
@@ -41,6 +42,7 @@ export const linkAccount = async (req, res) => {
     }
 };
 
+// >>>> NOT KNOWN YET <<<< 
 export const unlinkAccount = async (req, res) => {
     try {
         const primaryUserId = req.user._id;
