@@ -30,6 +30,8 @@ router.post('/api/users/lock', userController.lockAccount);
 router.post('/api/users/activate', userController.activateAccount);
 router.post('/api/users/deactivate', userController.deactivateAccount);
 
+router.post('/api/users/set-password', userController.setPassword);
+
 
 // Order Routes
 router.post('/api/orders/create', orderController.createOrder);

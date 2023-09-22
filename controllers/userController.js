@@ -223,6 +223,23 @@ export const searchUsers = async (req, res) => {
   }
 };
 
+// Function to set password
+// Request Parameters: token and new password
+export const setPassword = async (req, res) => {
+  try {
+      const { token, newPassword } = req.body;
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await User.findById(decoded.userId);
+      if (!user) {
+          return res.status(400).json({ message: 'Invalid token.' });
+      }
+      user.password = bcrypt.hashSync(newPassword, 10);  // hash the new password
+      await user.save();
+      res.status(200).json({ message: 'Password set successfully.' });
+  } catch (error) {
+      res.status(500).json({ message: 'Error setting password.', error: error.message });
+  }
+};
 
 // Function to change password
 // Request Parameters: currentPassword and newPassword.
