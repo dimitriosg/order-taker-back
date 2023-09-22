@@ -25,7 +25,7 @@ class AwsSesAdapter extends EmailInterface {
                     Data: subject
                 }
             },
-            Source: 'Order Taker <me@dgalanopoulos.eu>',
+            Source: 'Order Taker <greekbraziliantango@gmail.com>',
         };
 
         return this.ses.sendEmail(params).promise();
