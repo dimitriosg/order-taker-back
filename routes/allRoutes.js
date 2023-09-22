@@ -8,7 +8,6 @@ import { checkRole } from '../middleware/checkRole.js';
 import * as adminExc from '../utils/adminExc.js';
 import * as accountController from '../controllers/accountLinking.controller.js';
 import * as invitationController from '../controllers/invitations.controller.js';
-import * as sendTestMail from '../utils/send-test-mail.js';
 
 const router = express.Router();
 
@@ -43,7 +42,6 @@ router.post('/api/debug', (req, res) => {
     console.log("Debug Endpoint: ", req.body);
     res.json(req.body);
 });
-router.post('/api/testmail', sendTestMail);
 
 /////////////////////////
 // >>>> LINKING & INVITATION routes <<<<
