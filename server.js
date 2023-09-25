@@ -4,7 +4,6 @@ import { Server } from 'socket.io';
 import { join } from 'path';
 import cors from 'cors';
 
-
 const app = express();
 
 // Set up CORS
@@ -14,9 +13,15 @@ app.use(cors({
   credentials: true,
 }));
 
+// Apply CORS middleware to Express
+app.use(cors(corsOptions));
+
 const httpServer = createServer(app);
+
+// Apply CORS options to Socket.io as well
 const io = new Server(httpServer, {
-  path: "/socket.io"
+  path: "/socket.io",
+  cors: corsOptions
 });
 
 io.on('connection', (socket) => {
