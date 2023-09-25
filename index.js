@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 app.use(activityLogger); 
 
 // Middleware for CORS (anywhere)
-app.use(cors());
+//app.use(cors());
 
 // Middleware for authentication (if you have one globally)
 // app.use(authMiddleware);
