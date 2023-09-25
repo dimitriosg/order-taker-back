@@ -85,7 +85,7 @@ export const authenticateUser = async (req, res) => {
     const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, role: user.role });
   }catch(error){
     return res.status(400).json({message: 'Authentication failed', error });
   }
