@@ -8,6 +8,19 @@ const io = require("socket.io")(httpServer, {
   path: "/socket.io"
 });
 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('message', (msg) => {
+    io.emit('message', msg);
+  });
+});
+
+
 // Serve static files from the React app
 app.use(express.static(join(__dirname, 'frontend/build')));
 
