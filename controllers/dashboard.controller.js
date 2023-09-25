@@ -1,3 +1,4 @@
+// dashboard.controller.js
 import { config } from 'dotenv';
 import User from '../models/User.js';
 import Order from '../models/Order.js';
