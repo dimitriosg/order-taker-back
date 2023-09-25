@@ -18,7 +18,10 @@ const mongoURI = process.env.DATABASE_URL;
 
 
 const corsOptions = {
-  origin: 'https://order-taker-front-8e7edf8fac75.herokuapp.com',  // Replace with your frontend application's URL
+  origin: [
+    'http://localhost:3000',
+    'https://order-taker-front-8e7edf8fac75.herokuapp.com'
+  ],  // Allow both your local and deployed frontends
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -58,12 +61,6 @@ app.use(activityLogger);
 
 // Middleware for CORS (anywhere)
 //app.use(cors());
-
-// LOCAL + HEROKU
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://order-taker-front-8e7edf8fac75.herokuapp.com/'], 
-  credentials: true,
-}));
 
 // Middleware for authentication (if you have one globally)
 // app.use(authMiddleware);
