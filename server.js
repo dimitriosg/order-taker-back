@@ -52,7 +52,7 @@ app.use(express.static(join(__dirname, 'frontend/build')));
 if (process.env.NODE_ENV === 'production') {
   // Only use the catchall handler in production
   app.get('*', (req, res) => {
-    res.sendFile(join(__dirname + '/frontend/build/index.html'));
+    res.sendFile(join(__dirname + '/build/index.html'));
   });
 }
 
