@@ -47,12 +47,14 @@ app.use((req, res, next) => {
 // Middleware for activity logging
 app.use(activityLogger); 
 
-// Middleware for CORS (if needed)
-app.use(cors());
-// OR <<< for exclusive local use >>>>
-//app.use(cors({
-//  origin: ['http://localhost:3000', 'https://myapp.com']
-//}));
+// Middleware for CORS (anywhere)
+//app.use(cors());
+
+// LOCAL + HEROKU
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://order-taker-front-8e7edf8fac75.herokuapp.com/'], 
+  credentials: true,
+}));
 
 // Middleware for authentication (if you have one globally)
 // app.use(authMiddleware);
