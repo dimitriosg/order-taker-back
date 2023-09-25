@@ -43,8 +43,6 @@ router.post('/api/orders/create', orderController.createOrder);
 router.put('/api/orders/modify/:orderID', orderController.modifyOrder);
 router.put('/api/orders/update-status/:orderID', orderController.updateOrderStatus);
 
-// Dashboard Routes
-
 
 
 // Test Endpoint
