@@ -1,18 +1,19 @@
 import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 import { join } from 'path';
-import http from 'http';
 
-const app = express();  // Create an Express app
-const httpServer = http.createServer(app);  // Link the Express app to the HTTP server
-const io = require("socket.io")(httpServer, {
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
   path: "/socket.io"
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('A user connected with socket id:', socket.id);
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('User disconnected with socket id:', socket.id);
   });
 
   socket.on('message', (msg) => {
