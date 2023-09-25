@@ -2,8 +2,18 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { join } from 'path';
+import cors from 'cors';
+
 
 const app = express();
+
+// Set up CORS
+app.use(cors({
+  origin: 'https://order-taker-front-8e7edf8fac75.herokuapp.com',  // replace with your frontend app's URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   path: "/socket.io"
