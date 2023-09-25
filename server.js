@@ -7,7 +7,6 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-app.use(cors(corsOptions)); // Set up CORS
 
 const corsOptions = {
   origin: [
@@ -18,6 +17,8 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 204,
 };
+
+app.use(cors(corsOptions)); // Set up CORS
 
 const httpServer = createServer(app);
 
