@@ -1,3 +1,4 @@
+// server.js
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -6,14 +7,17 @@ import cors from 'cors';
 
 const app = express();
 
-// Set up CORS
-app.use(cors({
-  origin: 'https://order-taker-front-8e7edf8fac75.herokuapp.com',  // replace with your frontend app's URL
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://order-taker-front-8e7edf8fac75.herokuapp.com'
+  ],  // Allow both your local and deployed frontends
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-}));
+  optionsSuccessStatus: 204,
+};
 
-// Apply CORS middleware to Express
+// Set up CORS
 app.use(cors(corsOptions));
 
 const httpServer = createServer(app);
