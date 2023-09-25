@@ -1,6 +1,7 @@
 // Set the timezone
 process.env.TZ = 'Europe/Athens';  // Setting timezone to GMT+3 (Athens)
 
+import { app, httpServer } from './server.js';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -11,23 +12,11 @@ import { authMiddleware } from './middleware/authMiddleware.js';
 
 
 dotenv.config();
-const app = express();
+//const app = express();
 
 const PORT = process.env.PORT || 5000;
 const mongoURI = process.env.DATABASE_URL;
 
-
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'https://order-taker-front-8e7edf8fac75.herokuapp.com'
-  ],  // Allow both your local and deployed frontends
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
 // USED FOR LOCAL CONNECTION
 //const MONGODB_URI = process.env.MONGODB_URI;
 // Connect to MongoDB (local)
@@ -82,12 +71,9 @@ app.use((err, req, res, next) => {
 
 
 // Start the server
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log("Current Server Time:", new Date());
   console.log("Current Server Time:", new Date().toLocaleString('en-US', { timeZone: 'Europe/Athens' }));
   console.log("TZ variable:", process.env.TZ); 
   console.log(`Server running on port ${PORT}`);
 });
-
-
-
