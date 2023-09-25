@@ -1,6 +1,9 @@
+import express from 'express';
 import { join } from 'path';
+import http from 'http';
 
-const httpServer = require("http").createServer();
+const app = express();  // Create an Express app
+const httpServer = http.createServer(app);  // Link the Express app to the HTTP server
 const io = require("socket.io")(httpServer, {
   path: "/socket.io"
 });
@@ -13,4 +16,7 @@ app.get('*', (req, res) => {
   res.sendFile(join(__dirname + '/frontend/build/index.html'));
 });
 
-httpServer.listen();
+const PORT = process.env.PORT || 5000;
+httpServer.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
