@@ -8,8 +8,13 @@ import { checkRole } from '../middleware/checkRole.js';
 import * as adminExc from '../utils/adminExc.js';
 import * as accountController from '../controllers/accountLinking.controller.js';
 import * as invitationController from '../controllers/invitations.controller.js';
+import dashAPI from './dashboard/dashAPI.js';
 
 const router = express.Router();
+
+// Dashboard Routes
+router.use('/api/dashboard', dashAPI);
+
 
 // User Routes
 router.post('/api/users/create', userController.createUser);
@@ -37,6 +42,9 @@ router.post('/api/users/set-password', userController.setPassword);
 router.post('/api/orders/create', orderController.createOrder);
 router.put('/api/orders/modify/:orderID', orderController.modifyOrder);
 router.put('/api/orders/update-status/:orderID', orderController.updateOrderStatus);
+
+// Dashboard Routes
+
 
 
 // Test Endpoint

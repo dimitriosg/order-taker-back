@@ -1,5 +1,10 @@
 import { join } from 'path';
 
+const httpServer = require("http").createServer();
+const io = require("socket.io")(httpServer, {
+  path: "/socket.io"
+});
+
 // Serve static files from the React app
 app.use(express.static(join(__dirname, 'frontend/build')));
 
@@ -7,3 +12,5 @@ app.use(express.static(join(__dirname, 'frontend/build')));
 app.get('*', (req, res) => {
   res.sendFile(join(__dirname + '/frontend/build/index.html'));
 });
+
+httpServer.listen();
