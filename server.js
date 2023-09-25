@@ -2,7 +2,8 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors';
 
 const app = express();
@@ -40,13 +41,16 @@ io.on('connection', (socket) => {
   });
 });
 
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Serve static files from the React app
 app.use(express.static(join(__dirname, 'frontend/build')));
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(join(__dirname + '/frontend/build/index.html'));
+  res.sendFile(join(__dirname, 'frontend/build/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
