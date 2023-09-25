@@ -18,10 +18,10 @@ const mongoURI = process.env.DATABASE_URL;
 
 
 const corsOptions = {
-  origin: 'https://order-taker-front-8e7edf8fac75.herokuapp.com',  // replace with your frontend application's URL
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: 'https://order-taker-front-8e7edf8fac75.herokuapp.com',  // Replace with your frontend application's URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
