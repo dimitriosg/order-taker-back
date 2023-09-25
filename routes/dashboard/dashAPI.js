@@ -18,10 +18,10 @@ router.post('/cashier/notify-accountant', dashboardController.cashier.notifyAcco
 
 // <<< ACCOUNTANT ROUTES >>>
 // Route for fetching accountant details
-router.get('/acc/details', dashboardController.fetchAccDetails);
+router.get('/acc/details', dashboardController.accountant.fetchAccountantDetails);
 
 // Route for updating cash holding
-router.post('/acc/update-cash-holding', dashboardController.updateCashHolding);
+router.post('/acc/update-cash-holding', dashboardController.accountant.updateCashHolding);
 
 
 // <<< ADMIN ROUTES >>>

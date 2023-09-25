@@ -51,6 +51,10 @@ const dashboardController = {
   accountant: {
     fetchAccountantDashboard: async (req, res, user) => {
       // ...
+    },
+    fetchAccountantDetails: async (req, res) => {
+      // Your logic to fetch cashier details
+      // ...
     }
     // ... other accountant-specific functions
   },
