@@ -18,7 +18,8 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-app.use(cors(corsOptions)); // Set up CORS
+//app.use(cors(corsOptions)); // Set up CORS
+app.use(cors()); // Set up CORS
 
 const httpServer = createServer(app);
 
