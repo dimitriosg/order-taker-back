@@ -24,7 +24,10 @@ router.use('/tables', tableRoutes);
 
 // User Routes
 router.post('/api/users/create', userController.createUser);
+
 router.post('/api/users/authenticate', userController.authenticateUser);
+router.get('/validate', authMiddleware, userController.validateUser);
+
 router.put('/api/users/update/:userID', userController.updateUser);
 router.get('/api/users/details/:userID', userController.getUserDetails);
 router.get('/api/users/list', userController.listUsers);
@@ -42,6 +45,7 @@ router.post('/api/users/activate', userController.activateAccount);
 router.post('/api/users/deactivate', userController.deactivateAccount);
 
 router.post('/api/users/set-password', userController.setPassword);
+
 
 
 // Order Routes

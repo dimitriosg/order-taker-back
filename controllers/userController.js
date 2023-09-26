@@ -91,6 +91,10 @@ export const authenticateUser = async (req, res) => {
   }
 };
 
+export const validateUser = (req, res) => {
+  res.send('User validated');
+}
+
 // Function to update a user
 export const updateUser = async (req, res) => {
   console.log(`CONSOLE: Entered updateUser function`);
