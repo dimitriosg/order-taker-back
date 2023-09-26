@@ -8,12 +8,18 @@ import { checkRole } from '../middleware/checkRole.js';
 import * as adminExc from '../utils/adminExc.js';
 import * as accountController from '../controllers/accountLinking.controller.js';
 import * as invitationController from '../controllers/invitations.controller.js';
+
+// Dashboard imports
 import dashAPI from './dashboard/dashAPI.js';
+import orderRoutes from './dashboard/orderRoutes.js';
+import tableRoutes from './dashboard/tableRoutes.js';
 
 const router = express.Router();
 
 // Dashboard Routes
 router.use('/api/dashboard', dashAPI);
+router.use('/orders', orderRoutes);
+router.use('/tables', tableRoutes);
 
 
 // User Routes

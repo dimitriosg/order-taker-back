@@ -1,3 +1,5 @@
+// index.js
+
 // Set the timezone
 process.env.TZ = 'Europe/Athens';  // Setting timezone to GMT+3 (Athens)
 
@@ -6,7 +8,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import routes from './routes/allRoutes.js';
+import routes from './routes/allRoutes.js'; // for ALL ROUTES
 import { activityLogger } from './middleware/activityLogger.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
 
@@ -57,6 +59,7 @@ app.use(activityLogger);
 
 // API routes
 app.use('/', routes);  // Replace existing individual route uses
+
 
 //test route
 app.get('/test', (req, res) => {
