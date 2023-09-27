@@ -23,7 +23,7 @@ router.use('/orders', orderRoutes);
 router.use('/tables', tableRoutes);
 
 // Role Routes
-router.use('/api/roles', getAllRoles);
+router.get('/api/roles', getAllRoles);
 
 
 // User Routes
