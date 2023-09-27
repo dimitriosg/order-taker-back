@@ -60,10 +60,12 @@ export const createUser = async (req, res) => {
 // Function to authenticate a user
 export const authenticateUser = async (req, res) => {
   console.log(`CONSOLE: Entered authenticateUser function`);
+  console.log(req.body);  // Log the incoming request data
   try{
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+    console.log(user);  // Log the result of the database query
     if(!user){
       return res.status(401).json({message: 'User not found' });
     }
@@ -75,6 +77,8 @@ export const authenticateUser = async (req, res) => {
     }
 
     const isPasswordValid  = await bcrypt.compare(password, user.password);
+    console.log(isPasswordValid);  // Log the result of the password comparison
+
     if(!isPasswordValid){
       return res.status(401).json({message: 'Invalid credentials' });
     }
