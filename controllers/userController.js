@@ -86,10 +86,11 @@ export const authenticateUser = async (req, res) => {
     // Include user role in the JWT payload
     //const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
     const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-
+    
+    console.log(token);  // Log the generated token
     return res.status(200).json({ token, role: user.role });
   }catch(error){
+    console.error(error);  // Log the error to the console
     return res.status(400).json({message: 'Authentication failed', error });
   }
 };
