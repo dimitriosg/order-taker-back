@@ -7,6 +7,7 @@ export const getAllRoles = async (req, res) => {
         const roles = await Role.find();
         res.json(roles);
     } catch (error) {
+        console.error(error);  // Log the error to the console
         res.status(500).json({ message: error.message });
     }
 };
