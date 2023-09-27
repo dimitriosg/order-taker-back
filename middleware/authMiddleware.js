@@ -1,7 +1,9 @@
 // authMiddleware.js
 // Desc: Middleware for authenticating user
 import jwt from 'jsonwebtoken';
-import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
+
+const { TokenExpiredError, JsonWebTokenError } = jwt;
+
 
 export const authMiddleware = (req, res, next) => {
   try {
