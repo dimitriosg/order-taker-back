@@ -1,5 +1,6 @@
 // controllers/roleController.js
 
+import mongoose from 'mongoose';
 import Role from '../models/Role.js';
 
 export const getAllRoles = async (req, res) => {
