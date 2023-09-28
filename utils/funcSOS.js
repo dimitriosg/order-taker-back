@@ -32,5 +32,10 @@ export const repairDatabase = () => {
   
   export const runDebugTools = () => {
     // Code to run debugging tools
+    console.log(`CONSOLE: Entering runDebugTools`);
+    console.log(`CONSOLE: req.user:`, req.user);
+    console.log(`CONSOLE: req.user.role:`, req.user.role);
+
+    return res.status(200).json({ message: 'runDebugTools called successfully' });
   };
   

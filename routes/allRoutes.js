@@ -65,6 +65,8 @@ router.post('/api/debug', (req, res) => {
     res.json(req.body);
 });
 
+router.get('/api/rundebugtools', funcSOS.runDebugTools);
+
 /////////////////////////
 // >>>> LINKING & INVITATION routes <<<<
 // ACCOUNT LINKING ROUTES
