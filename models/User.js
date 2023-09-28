@@ -1,5 +1,7 @@
 // backend/models/User.js
 import mongoose from 'mongoose';
+import { roles } from './allRoles.js';  // importing all roles for 'role' value
+
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -17,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['waiter', 'cashier', 'accountant', 'admin', 'developer'],
+    enum: roles,
     required: true
   }, 
   resetToken: {
