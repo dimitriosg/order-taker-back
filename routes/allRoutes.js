@@ -2,13 +2,17 @@
 import express from 'express';
 import * as userController from '../controllers/userController.js';
 import * as orderController from '../controllers/orderController.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
-import * as funcSOS from '../utils/funcSOS.js';
-import { checkRole } from '../middleware/checkRole.js';
-import * as adminExc from '../utils/adminExc.js';
+import * as roleController from '../controllers/roleController.js';
+
 import * as accountController from '../controllers/accountLinking.controller.js';
 import * as invitationController from '../controllers/invitations.controller.js';
-import { getAllRoles } from '../controllers/roleController.js';
+
+import { authMiddleware } from '../middleware/authMiddleware.js';
+import { checkRole } from '../middleware/checkRole.js';
+
+import * as funcSOS from '../utils/funcSOS.js';
+import * as adminExc from '../utils/adminExc.js';
+
 
 // Dashboard imports
 import dashAPI from './dashboard/dashAPI.js';
@@ -22,19 +26,17 @@ router.use('/api/dashboard', dashAPI);
 router.use('/orders', orderRoutes);
 router.use('/tables', tableRoutes);
 
-// Role Routes
-router.get('/api/roles', getAllRoles);
-
-
 // User Routes
 router.post('/api/users/create', userController.createUser);
 
 router.post('/api/users/authenticate', userController.authenticateUser);
 router.get('/validate', authMiddleware, userController.validateUser);
 
+router.get('/api/users/list', userController.listUsers);
+router.get('/api/users/roles', roleController.getAllRoles);
+
 router.put('/api/users/update/:userID', userController.updateUser);
 router.get('/api/users/details/:userID', userController.getUserDetails);
-router.get('/api/users/list', userController.listUsers);
 router.delete('/api/users/delete/:userID', userController.deleteUser);
 router.get('/api/users/search', userController.searchUsers);
 
@@ -51,12 +53,10 @@ router.post('/api/users/deactivate', userController.deactivateAccount);
 router.post('/api/users/set-password', userController.setPassword);
 
 
-
 // Order Routes
 router.post('/api/orders/create', orderController.createOrder);
 router.put('/api/orders/modify/:orderID', orderController.modifyOrder);
 router.put('/api/orders/update-status/:orderID', orderController.updateOrderStatus);
-
 
 
 // Test Endpoint
