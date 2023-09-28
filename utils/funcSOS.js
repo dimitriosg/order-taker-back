@@ -30,7 +30,7 @@ export const emergencyUnlockAccounts = () => {
   // Code to unlock all user accounts
 };
 
-export const runDebugTools = () => {
+export const runDebugTools = (req, res, next) => {
   // Code to run debugging tools
   console.log(`CONSOLE: Entering runDebugTools`);
 
