@@ -26,16 +26,13 @@ export const repairDatabase = () => {
     // Code to repair database inconsistencies
   };
   
-  export const emergencyUnlockAccounts = () => {
-    // Code to unlock all user accounts
-  };
-  
-  export const runDebugTools = () => {
-    // Code to run debugging tools
-    console.log(`CONSOLE: Entering runDebugTools`);
-    console.log(`CONSOLE: req.user:`, req.user);
-    console.log(`CONSOLE: req.user.role:`, req.user.role);
+export const emergencyUnlockAccounts = () => {
+  // Code to unlock all user accounts
+};
 
-    return res.status(200).json({ message: 'runDebugTools called successfully' });
-  };
-  
+export const runDebugTools = () => {
+  // Code to run debugging tools
+  console.log(`CONSOLE: Entering runDebugTools`);
+
+  return res.status(200).json({ message: 'runDebugTools called successfully' });
+};
