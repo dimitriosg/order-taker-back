@@ -3,11 +3,23 @@
 import Role from '../models/Role.js';
 
 export const getAllRoles = async (req, res) => {
+    console.log(`CONSOLE: Entered getAllRoles function`);
+
     try {
-        const roles = await Role.find();
-        res.json(roles);
-    } catch (error) {
-        console.error(error);  // Log the error to the console
-        res.status(500).json({ message: error.message });
+        // Get the count of users for each role
+        const roles = await Role.aggregate([
+            { $group: { _id: '$role', count: { $sum: 1 } } }
+        ]);
+        console.log("Role Counts:", userCounts);
+
+        // Optionally, get teht total of count of roles
+        const totalRoles = await Role.countDocuments();
+
+        res.status(200).json({
+            roles,
+            totalRoles
+        });
+    }catch (error) {
+        res.status(400).json({ message: 'Error listing roles', error });
     }
 };

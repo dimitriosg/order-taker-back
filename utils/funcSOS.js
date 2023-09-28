@@ -24,7 +24,7 @@ export const deleteAllUsers = async (req, res) => {
 
 export const repairDatabase = () => {
     // Code to repair database inconsistencies
-  };
+};
   
 export const emergencyUnlockAccounts = () => {
   // Code to unlock all user accounts
