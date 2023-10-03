@@ -9,7 +9,7 @@ export const checkRole = (roles) => {
         if (roles.includes(req.user.role)) {
             next();
         } else {
-            return res.status(403).json({ message: 'Access denied.' });
+            return res.status(403).json({ message: 'Check Role: Access denied.' });
         }
     };
 };
