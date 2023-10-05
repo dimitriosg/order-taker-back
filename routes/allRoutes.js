@@ -24,7 +24,7 @@ import menuRoutes from './menuRoutes.js';
 import menuItemsRoutes from './menuItemsRoutes.js';
 
 
-import { categories } from './allMenuCategories.js';
+import { categories } from '../models/allMenuCategories.js';
 
 
 const router = express.Router();
