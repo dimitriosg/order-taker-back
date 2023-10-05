@@ -1,7 +1,7 @@
 // routes/orders.js
 
 import express from 'express';
-import Order from '../models/Orders.js';
+import Order from '../models/Order.js';
 
 const router = express.Router();
 
