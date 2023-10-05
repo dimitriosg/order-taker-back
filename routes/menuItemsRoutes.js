@@ -18,7 +18,8 @@ router.post('/addMenuItem', authMiddleware, async (req, res) => {
         await newItem.save();
         res.status(201).json(newItem);
     } catch (error) {
-        console.log(req.body);
+        console.log(`Req.headers: ${JSON.stringify(req.headers)}`);
+        console.log(`Req.headers['content-type']: ${req.headers['content-type']}`);
         console.error("Error while adding the item:", error); // Log the error for debugging
         res.status(500).json({ error: `Failed to add the item. Reason: ${error.message}. Body: ${req.body}` });
     }
