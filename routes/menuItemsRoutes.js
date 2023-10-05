@@ -38,7 +38,7 @@ router.post('/addMenuItem', upload.single('image'), async (req, res) => {
     }
 });
 
-router.delete('/removeMenuItem/:itemId', authMiddleware, async (req, res) => {
+router.delete('/removeMenuItem/:itemId', async (req, res) => {
     try {
         const { itemId } = req.params;
         const item = await MenuItem.findById(itemId);
