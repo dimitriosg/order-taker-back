@@ -1,2 +1,3 @@
 // allRoles.js
-export const roles = ['waiter', 'cashier', 'accountant', 'admin', 'developer'];
+export const roles = 
+['waiter', 'cashier', 'accountant', 'admin', 'developer'];

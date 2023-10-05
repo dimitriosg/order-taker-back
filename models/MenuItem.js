@@ -1,5 +1,6 @@
 // models/MenuItem.js
 import mongoose from 'mongoose';
+import { categories } from './allMenuCategories.js';
 
 const menuItemSchema = new mongoose.Schema({
   name: {
@@ -17,7 +18,7 @@ const menuItemSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Food', 'Alcohol', 'Soft Drinks', 'Special Drinks', 'unknown'],
+    enum: categories,
     required: true
   },
   imageUrl: { 
