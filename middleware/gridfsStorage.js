@@ -6,8 +6,6 @@ import Grid from 'gridfs-stream';
 import { GridFsStorage } from 'multer-gridfs-storage';
 
 const conn = mongoose.connection;
-const upload = multer({ storage: storage });
-
 
 let gfs;
 conn.once('open', () => {
@@ -29,4 +27,7 @@ const storage = new GridFsStorage({
   }
 });
 
+const upload = multer({ storage: storage });
+
 export default storage;
+export { upload };
