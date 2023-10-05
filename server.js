@@ -6,6 +6,8 @@ import { Server } from 'socket.io';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import multerRoutes from './middleware/multer.js';
+
 const app = express();
 
 const corsOptions = {
@@ -20,6 +22,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Set up CORS
 //app.use(cors()); // Set up CORS
+
+// Use the multer routes
+app.use('/api', multerRoutes);
 
 const httpServer = createServer(app);
 
