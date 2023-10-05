@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 import Grid from 'gridfs-stream';
-import GridFsStorage from 'multer-gridfs-storage';
+import { GridFsStorage } from 'multer-gridfs-storage';
 
 const conn = mongoose.connection;
 

@@ -1,8 +1,10 @@
 // src/middleware/multer.js
+import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import storage from './gridfsStorage.js';
 
+const router = express.Router();
 const upload = multer({ storage });
 
 router.post('/upload', upload.single('image'), async (req, res) => {
@@ -27,5 +29,6 @@ router.get('/image/:filename', (req, res) => {
         res.status(404).json({ error: 'Not an image' });
       }
     });
-  });
-  
+});
+
+export default router;
