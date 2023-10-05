@@ -22,12 +22,19 @@ router.post('/addMenuItem', upload.single('image'), async (req, res) => {
             imageUrl,
         });
         await newItem.save();
-        res.status(201).json(newItem);
+        res.status(201).json({ 
+            success: true, 
+            message: 'Menu item added successfully!', 
+            data: newItem 
+        });
     } catch (error) {
         console.log(`Req.headers: ${JSON.stringify(req.headers)}`);
         console.log(`Req.headers['content-type']: ${req.headers['content-type']}`);
         console.error("Error while adding the item:", error); // Log the error for debugging
-        res.status(500).json({ error: `Failed to add the item. Reason: ${error.message}. Body: ${req.body}` });
+        res.status(500).json({ 
+            success: false, 
+            error: `Failed to add the item. Reason: ${error.message}.` 
+        });
     }
 });
 
