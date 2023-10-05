@@ -1,3 +1,4 @@
+// src/routes/menuItemsRoutes.js
 import express from 'express';
 import MenuItem from '../models/MenuItem.js';
 import { authMiddleware } from '../middleware/authMiddleware.js'; // Assuming you have these middlewares set up.
@@ -34,3 +35,5 @@ router.delete('/removeMenuItem/:itemId', authMiddleware, async (req, res) => {
         res.status(500).json({ error: 'Failed to remove the item.' });
     }
 });
+
+export default router;

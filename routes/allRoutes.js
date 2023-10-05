@@ -30,11 +30,11 @@ import { categories } from '../models/allMenuCategories.js';
 const router = express.Router();
 
 // Orders + Menu
-app.use('/api/orders', ordersRoutes);
-app.use('/api/menu', menuRoutes);
-app.use('/api/menuItems', menuItemsRoutes); // + addMenuItem, removeMenuItem
+router.use('/api/orders', ordersRoutes);
+router.use('/api/menu', menuRoutes);
+router.use('/api/menuItems', menuItemsRoutes); // + addMenuItem, removeMenuItem
 
-app.get('/api/menuCategories', (req, res) => {
+router.get('/api/menuCategories', (req, res) => {
     res.json(categories);
 });
 
