@@ -38,7 +38,7 @@ router.post('/addMenuItem', upload.single('image'), async (req, res) => {
     }
 });
 
-router.delete('/removeMenuItem/:itemId', async (req, res) => {
+router.delete('/removeMenuItem/:itemId', authMiddleware, async (req, res) => {
     try {
         const { itemId } = req.params;
         const item = await MenuItem.findById(itemId);
@@ -48,9 +48,11 @@ router.delete('/removeMenuItem/:itemId', async (req, res) => {
         await item.remove();
         res.status(200).json({ message: 'Item removed successfully.' });
     } catch (error) {
-        res.status(500).json({ error: 'Failed to remove the item.' });
+        console.error(error);  // Log the detailed error for debugging
+        res.status(500).json({ error: 'Failed to remove the item.', details: error.message });
     }
 });
+
 
 router.get('/', async (req, res) => {
     try {
