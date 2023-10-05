@@ -23,6 +23,9 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Set up CORS
 //app.use(cors()); // Set up CORS
 
+// Use the multer routes
+app.use('/api', multerRoutes);
+
 const httpServer = createServer(app);
 
 // Apply CORS options to Socket.io as well
@@ -31,8 +34,7 @@ const io = new Server(httpServer, {
   cors: corsOptions
 });
 
-// Use the multer routes
-app.use('/api', multerRoutes);
+
 
 io.on('connection', (socket) => {
   console.log('A user connected with socket id:', socket.id);
