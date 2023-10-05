@@ -13,13 +13,21 @@ import { checkRole } from '../middleware/checkRole.js';
 import * as funcSOS from '../utils/funcSOS.js';
 import * as adminExc from '../utils/adminExc.js';
 
-
 // Dashboard imports
 import dashAPI from './dashboard/dashAPI.js';
 import orderRoutes from './dashboard/orderRoutes.js';
 import tableRoutes from './dashboard/tableRoutes.js';
 
+// Other routes
+import ordersRoutes from './orders.js';
+import menuRoutes from './menu.js';
+
+
 const router = express.Router();
+
+// Orders + Menu
+app.use('/api/orders', ordersRoutes);
+app.use('/api/menu', menuRoutes);
 
 // Dashboard Routes
 router.use('/api/dashboard', dashAPI);

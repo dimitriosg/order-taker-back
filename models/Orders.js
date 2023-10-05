@@ -1,10 +1,22 @@
+// models/Orders.js
 import mongoose from 'mongoose';
+
+const orderItemSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  quantity: Number
+});
 
 const OrderSchema = new mongoose.Schema({
   orderID: {
     type: String,
     required: true,
     unique: true
+  },
+  tableId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Table',
+    required: true
   },
   waiterID: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +39,7 @@ const OrderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['sent', 'in-progress', 'READY!', 'HALF ready', 'COMPLETE', 'ON HOLD', 'cancelled'],
+    enum: ['Sent', 'In Progress', 'READY!', 'COMPLETE', 'Cancelled'],
     default: 'sent'
   },
   statusLog: [
