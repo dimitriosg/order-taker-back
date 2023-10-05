@@ -6,7 +6,7 @@ import { authMiddleware } from '../middleware/authMiddleware.js'; // Assuming yo
 
 const router = express.Router();
 
-router.post('/addMenuItem', authMiddleware, upload.single('image'), async (req, res) => {
+router.post('/addMenuItem', async (req, res) => {
     try {
         const { name, price, description, category } = req.body;
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
