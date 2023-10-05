@@ -23,9 +23,6 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Set up CORS
 //app.use(cors()); // Set up CORS
 
-// Use the multer routes
-app.use('/api', multerRoutes);
-
 const httpServer = createServer(app);
 
 // Apply CORS options to Socket.io as well
@@ -33,6 +30,9 @@ const io = new Server(httpServer, {
   path: "/socket.io",
   cors: corsOptions
 });
+
+// Use the multer routes
+app.use('/api', multerRoutes);
 
 io.on('connection', (socket) => {
   console.log('A user connected with socket id:', socket.id);
@@ -60,5 +60,19 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(join(__dirname, 'frontend/build/index.html'));
   });
 }
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error(`Unhandled Rejection at: ${promise}`, `Reason: ${reason}`);
+  // Close server & exit process
+  httpServer.close(() => process.exit(1));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send({ error: 'Server Error', message: err.message });
+});
+
 
 export { app, httpServer };
