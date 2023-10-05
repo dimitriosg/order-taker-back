@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.post('/addMenuItem', authMiddleware, upload.single('image'), async (req, res) => {
     try {
-        const { name, price, description, category, imageUrl } = req.body;
+        const { name, price, description, category } = req.body;
+        const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+
         const newItem = new MenuItem({
             name,
             price,

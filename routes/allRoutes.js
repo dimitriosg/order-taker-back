@@ -1,4 +1,5 @@
 // allRoutes.js is the main router file that contains all the routes of the application.
+// src/routes/allRoutes.js
 import express from 'express';
 import * as userController from '../controllers/userController.js';
 import * as orderController from '../controllers/orderController.js';
