@@ -1,10 +1,13 @@
 // src/middleware/gridfsStorage.js
 
 import mongoose from 'mongoose';
+import multer from 'multer';
 import Grid from 'gridfs-stream';
 import { GridFsStorage } from 'multer-gridfs-storage';
 
 const conn = mongoose.connection;
+const upload = multer({ storage: storage });
+
 
 let gfs;
 conn.once('open', () => {

@@ -5,7 +5,7 @@ import path from 'path';
 import storage from './gridfsStorage.js';
 
 const router = express.Router();
-const upload = multer({ storage });
+const upload = multer({ dest: 'uploads/' });
 
 router.post('/upload', upload.single('image'), async (req, res) => {
     if (req.file) {
@@ -31,4 +31,5 @@ router.get('/image/:filename', (req, res) => {
     });
 });
 
+export { upload };
 export default router;

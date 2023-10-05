@@ -1,11 +1,12 @@
 // src/routes/menuItemsRoutes.js
 import express from 'express';
 import MenuItem from '../models/MenuItem.js';
+import { upload } from '../middleware/multer.js';
 import { authMiddleware } from '../middleware/authMiddleware.js'; // Assuming you have these middlewares set up.
 
 const router = express.Router();
 
-router.post('/addMenuItem', authMiddleware, async (req, res) => {
+router.post('/addMenuItem', authMiddleware, upload.single('image'), async (req, res) => {
     try {
         const { name, price, description, category, imageUrl } = req.body;
         const newItem = new MenuItem({
