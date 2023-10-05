@@ -6,7 +6,7 @@ import { authMiddleware } from '../middleware/authMiddleware.js'; // Assuming yo
 
 const router = express.Router();
 
-router.post('/addMenuItem', async (req, res) => {
+router.post('/addMenuItem', upload.single('image'), async (req, res) => {
     console.log(req.body);  // Should show your text fields
     console.log(req.file);  // Should show info about the uploaded file
 
