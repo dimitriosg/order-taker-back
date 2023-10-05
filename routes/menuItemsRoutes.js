@@ -7,16 +7,19 @@ import { authMiddleware } from '../middleware/authMiddleware.js'; // Assuming yo
 const router = express.Router();
 
 router.post('/addMenuItem', async (req, res) => {
+    console.log(req.body);  // Should show your text fields
+    console.log(req.file);  // Should show info about the uploaded file
+
     try {
-        const { name, price, description, category } = req.body;
+        // const { name, price, description, category } = req.body;
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
 
         const newItem = new MenuItem({
-            name,
-            price,
-            description,
-            category,
-            imageUrl
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
+            category: req.body.category,
+            imageUrl,
         });
         await newItem.save();
         res.status(201).json(newItem);
