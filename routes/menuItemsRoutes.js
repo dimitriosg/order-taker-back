@@ -41,11 +41,12 @@ router.post('/addMenuItem', upload.single('image'), async (req, res) => {
 router.delete('/removeMenuItem/:itemId', async (req, res) => {
     try {
         const { itemId } = req.params;
-        const item = await MenuItem.findById(itemId);
-        if (!item) {
+        const result = await MenuItem.findByIdAndDelete(itemId);
+
+        if (!result) {
             return res.status(404).json({ error: 'Item not found.' });
         }
-        await item.remove();
+
         res.status(200).json({ message: 'Item removed successfully.' });
     } catch (error) {
         console.error(error);  // Log the detailed error for debugging
