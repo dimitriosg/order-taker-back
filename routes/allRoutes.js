@@ -18,10 +18,12 @@ import dashAPI from './dashboard/dashAPI.js';
 import orderRoutes from './dashboard/orderRoutes.js';
 import tableRoutes from './dashboard/tableRoutes.js';
 
-// Other routes
+// Orders + Menu imports
 import ordersRoutes from './ordersRoutes.js';
 import menuRoutes from './menuRoutes.js';
-import menuItemsRoutes from './routes/menuItems.js';
+import menuItemsRoutes from './menuItemsRoutes.js';
+
+
 import { categories } from './allMenuCategories.js';
 
 
@@ -30,7 +32,8 @@ const router = express.Router();
 // Orders + Menu
 app.use('/api/orders', ordersRoutes);
 app.use('/api/menu', menuRoutes);
-app.use('/api/menuItems', menuItemsRoutes);
+app.use('/api/menuItems', menuItemsRoutes); // + addMenuItem, removeMenuItem
+
 app.get('/api/menuCategories', (req, res) => {
     res.json(categories);
 });
