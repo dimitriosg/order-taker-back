@@ -54,12 +54,17 @@ router.delete('/removeMenuItem/:itemId', authMiddleware, async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const items = await MenuItem.find();
+        let query = {};
+        if (req.query.category) {
+            query.category = req.query.category;
+    }
+        const items = await MenuItem.find(query);
         res.status(200).json(items);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch menu items.' });
     }
 });
+
 
 router.get('/categories', async (req, res) => {
     try {
