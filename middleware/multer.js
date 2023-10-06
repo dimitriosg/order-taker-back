@@ -52,7 +52,8 @@ router.get('/image/:filename', (req, res) => {
 
 router.get('/all-images', async (req, res) => {
   try {
-    gfs.files.find().toArray((err, files) => {
+    // gfs.files.find().toArray((err, files) => {
+    gfs.files.find({}, { filename: 1 }).toArray((err, files) => {
       // Check if files exist
       if (!files || files.length === 0) {
         return res.status(404).json({
@@ -60,8 +61,12 @@ router.get('/all-images', async (req, res) => {
         });
       }
 
+      // Extract filenames and return
+      const filenames = files.map(file => file.filename);
+
+      return res.json(filenames);
       // Return the list of files
-      return res.json(files);
+      // return res.json(files);
     });
   } catch (error) {
     console.error(error.stack);
