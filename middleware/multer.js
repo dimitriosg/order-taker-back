@@ -1,5 +1,6 @@
 // src/middleware/multer.js
 import express from 'express';
+import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
 import storage from './gridfsStorage.js';
@@ -13,6 +14,22 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     } else {
       res.status(400).json({ error: 'File not uploaded' });
     }
+});
+
+router.get('/uploads/:filename', (req, res) => {
+  const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'uploads'
+  });
+
+  gfs.find({ filename: req.params.filename }).toArray((err, files) => {
+      if (!files || files.length === 0) {
+          return res.status(404).json({
+              err: 'No files exist'
+          });
+      }
+
+      gfs.openDownloadStreamByName(req.params.filename).pipe(res);
+  });
 });
 
 router.get('/image/:filename', (req, res) => {
