@@ -12,7 +12,7 @@ router.post('/addMenuItem', upload.single('image'), async (req, res) => {
 
     try {
         // const { name, price, description, category } = req.body;
-        const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+        const imageUrl = req.file ? `/upload/${req.file.filename}` : undefined;
 
         const newItem = new MenuItem({
             name: req.body.name,
