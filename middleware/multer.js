@@ -53,7 +53,9 @@ router.get('/image/:filename', (req, res) => {
 router.get('/all-images', async (req, res) => {
   try {
     // gfs.files.find().toArray((err, files) => {
-    gfs.files.find({}, { filename: 1 }).toArray((err, files) => {
+      
+    // limiting results to 10
+    gfs.files.find({}, { filename: 1 }).limit(10).toArray((err, files) => {
       // Check if files exist
       if (!files || files.length === 0) {
         return res.status(404).json({
