@@ -56,12 +56,12 @@ router.get('/image/:filename', (req, res) => {
 router.get('/all-images', async (req, res) => {
   console.log("Entering /all-images route...");
 
-  const gfs = getGfs();
-  if (!gfs) {
-    return res.status(500).json({ error: 'Server is not ready yet. Please try again later.' });
+  if (!gfs || !gfs.files) {
+    console.log("gfs or gfs.files is not defined.");
+    return res.status(500).json({ error: 'Server is not initialized properly. gfs or gfs.files is undefined.' });
   }
 
-  console.log("gfs initialized successfully.");
+  console.log("gfs and gfs.files are defined. Proceeding...");
 
   try {
     gfs.files.find({}, { filename: 1 }).limit(10).toArray((err, files) => {
