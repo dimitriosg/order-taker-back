@@ -7,13 +7,14 @@ import storage from './gridfsStorage.js';
 
 const router = express.Router();
 
-// Initialize gfs
-let gfs;
-mongoose.connection.once('open', () => {
-  gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+const getGfs = () => {
+  if (!mongoose.connection.readyState) {
+    return null;
+  }
+  return new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
     bucketName: 'uploads'
   });
-});
+};
 
 const upload = multer({ storage: storage });
 
@@ -27,29 +28,37 @@ router.post('/upload', upload.single('image'), (req, res) => {
 });
 
 router.get('/image/:filename', (req, res) => {
-  gfs.find({ filename: req.params.filename }).toArray((err, files) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    if (!files || files.length === 0) {
-      return res.status(404).json({ error: 'No file exists' });
-    }
+  const gfs = getGfs();
+  if (!gfs) {
+    return res.status(500).json({ error: 'Server is not ready yet. Please try again later.' });
+  }
 
-    // Check if image
-    const file = files[0];
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-      const readstream = gfs.openDownloadStreamByName(req.params.filename);
-      readstream.on('error', err => {
-        res.status(500).json({ error: err.message });
-      });
-      readstream.pipe(res);
-    } else {
-      res.status(404).json({ error: 'Not an image' });
-    }
-  });
+  if (err) {
+    return res.status(500).json({ error: err.message });
+  }
+  if (!files || files.length === 0) {
+    return res.status(404).json({ error: 'No file exists' });
+  }
+
+  // Check if image
+  const file = files[0];
+  if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+    const readstream = gfs.openDownloadStreamByName(req.params.filename);
+    readstream.on('error', err => {
+      res.status(500).json({ error: err.message });
+    });
+    readstream.pipe(res);
+  } else {
+    res.status(404).json({ error: 'Not an image' });
+  }
 });
 
 router.get('/all-images', async (req, res) => {
+  const gfs = getGfs();
+  if (!gfs) {
+    return res.status(500).json({ error: 'Server is not ready yet. Please try again later.' });
+  }
+  
   try {
     gfs.files.find({}, { filename: 1 }).limit(10).toArray((err, files) => {
       if (err) {
