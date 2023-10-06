@@ -7,11 +7,13 @@ import storage from './gridfsStorage.js';
 
 const router = express.Router();
 
-const getGfs = () => {
+let gfs;
+
+const initializeGfs = () => {
   if (!mongoose.connection.readyState) {
-    return null;
+    return;
   }
-  return new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+  gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
     bucketName: 'uploads'
   });
 };
@@ -20,6 +22,8 @@ const upload = multer({ storage: storage });
 
 
 router.post('/upload', upload.single('image'), (req, res) => {
+  initializeGfs();
+
   if (req.file) {
     res.json({ imageUrl: `/image/${req.file.filename}` });
   } else {
@@ -28,7 +32,8 @@ router.post('/upload', upload.single('image'), (req, res) => {
 });
 
 router.get('/image/:filename', (req, res) => {
-  const gfs = getGfs();
+  initializeGfs();
+
   if (!gfs) {
     return res.status(500).json({ error: 'Server is not ready yet. Please try again later.' });
   }
@@ -36,12 +41,12 @@ router.get('/image/:filename', (req, res) => {
   if (err) {
     return res.status(500).json({ error: err.message });
   }
-  if (!files || files.length === 0) {
+  if (!file || file.length === 0) {
     return res.status(404).json({ error: 'No file exists' });
   }
 
   // Check if image
-  const file = files[0];
+  const file = file[0];
   if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
     const readstream = gfs.openDownloadStreamByName(req.params.filename);
     readstream.on('error', err => {
@@ -55,6 +60,7 @@ router.get('/image/:filename', (req, res) => {
 
 router.get('/all-images', async (req, res) => {
   console.log("Entering /all-images route...");
+  initializeGfs();
 
   if (!gfs || !gfs.files) {
     console.log("gfs or gfs.files is not defined.");
