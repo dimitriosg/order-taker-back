@@ -4,16 +4,17 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import Grid from 'gridfs-stream';
 import { GridFsStorage } from 'multer-gridfs-storage';
-import api from '../../api.js';
+
+const conn = mongoose.connection;
 
 let gfs;
-api.once('open', () => {
+conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });
 
 const storage = new GridFsStorage({
-  db: api,
+  db: conn,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       const filename = file.originalname;
