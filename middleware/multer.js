@@ -54,26 +54,33 @@ router.get('/image/:filename', (req, res) => {
 });
 
 router.get('/all-images', async (req, res) => {
+  console.log("Entering /all-images route...");
+
   const gfs = getGfs();
   if (!gfs) {
     return res.status(500).json({ error: 'Server is not ready yet. Please try again later.' });
   }
-  
+
+  console.log("gfs initialized successfully.");
+
   try {
     gfs.files.find({}, { filename: 1 }).limit(10).toArray((err, files) => {
       if (err) {
+        console.error("Error fetching files:", err);
         return res.status(500).json({ error: err.message });
       }
       if (!files || files.length === 0) {
+        console.log("No files found.");
         return res.status(404).json({
           message: 'No files exist'
         });
       }
       const filenames = files.map(file => file.filename);
+      console.log("Files found:", filenames);
       return res.json(filenames);
     });
   } catch (error) {
-    console.error(error.stack);
+    console.error("Error in /all-images route:", error.stack);
     res.status(500).send('Server Error');
   }
 });
