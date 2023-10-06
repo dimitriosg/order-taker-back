@@ -46,7 +46,7 @@ router.use('/orders', orderRoutes);
 router.use('/tables', tableRoutes);
 
 // User Routes
-router.post('/api/users/create', userController.createUser);
+router.post('/api/users/create-user', userController.createUser);
 
 router.post('/api/users/authenticate', userController.authenticateUser);
 router.get('/validate', authMiddleware, userController.validateUser);
