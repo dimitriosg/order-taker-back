@@ -60,6 +60,12 @@ app.use(activityLogger);
 // API routes
 app.use('/', routes);  // Replace existing individual route uses
 
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
 
 //test route
 app.get('/test', (req, res) => {
