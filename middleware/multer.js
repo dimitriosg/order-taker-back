@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
 import storage from './gridfsStorage.js';
+import { gfs } from './gridfsStorage.js';
+
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });

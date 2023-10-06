@@ -31,3 +31,4 @@ const upload = multer({ storage: storage });
 
 export default storage;
 export { upload };
+export { gfs };
