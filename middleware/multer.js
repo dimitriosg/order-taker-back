@@ -62,6 +62,7 @@ router.get('/all-images', async (req, res) => {
       return res.json(files);
     });
   } catch (error) {
+    console.error(error.stack);
     res.status(500).send('Server Error');
   }
 });
