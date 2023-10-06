@@ -71,6 +71,8 @@ router.post('/api/users/deactivate', userController.deactivateAccount);
 
 router.post('/api/users/set-password', userController.setPassword);
 
+router.put('/api/users/updateStatus/:userId', userController.updateStatus);
+
 
 // Order Routes
 router.post('/api/orders/create', orderController.createOrder);

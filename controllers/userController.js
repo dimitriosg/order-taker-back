@@ -131,7 +131,6 @@ export const getUserDetails = async (req, res) => {
   }
 };
 
-/////////////////////////
 
 // Function to delete a user
 export const deleteUser = async (req, res) => {
@@ -390,6 +389,36 @@ export const deactivateAccount = async (req, res) => {
     res.status(400).json({ message: 'Error deactivating account', error });
   }
 };
+
+// Function to change the status of a user
+export const updateStatus = async (req, res) => {
+  console.log(`CONSOLE: Entered updateStatus function`);
+  try {
+      const { status } = req.body;
+      const userId = req.params.userId;
+
+      // Ensure the new status is one of the allowed values
+      if (!["Active", "Deactivated", "Locked"].includes(status)) {
+          return res.status(400).json({ message: 'Invalid status value' });
+      }
+
+      // Find the user by ID and update their status
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      user.accountStatus = status;
+      await user.save();
+
+      res.status(200).json({ message: `User status changed to ${status} successfully` });
+  } catch (error) {
+      console.error("Error:", error);
+      res.status(400).json({ message: 'Error changing user status', error });
+  }
+};
+
+
 
 
 
