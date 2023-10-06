@@ -7,14 +7,19 @@ import storage from './gridfsStorage.js';
 
 const router = express.Router();
 
-let gfs;
+let gfsInstance;
 
-mongoose.connection.once('open', () => {
-  // Initializing gfs once the MongoDB connection is open
-  gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-    bucketName: 'uploads'
-  });
-});
+const getGfs = () => {
+  if (!gfsInstance) {
+    if (!mongoose.connection || !mongoose.connection.db) {
+      return null;
+    }
+    gfsInstance = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'uploads'
+    });
+  }
+  return gfsInstance;
+};
 
 const upload = multer({ storage: storage });
 
@@ -54,6 +59,8 @@ router.get('/image/:filename', (req, res) => {
 
 router.get('/all-images', async (req, res) => {
   console.log("Entering /all-images route...");
+
+  const gfs = getGfs();
 
   if (!gfs || !gfs.files) {
     console.log("gfs or gfs.files is not defined.");
