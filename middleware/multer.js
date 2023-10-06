@@ -48,5 +48,23 @@ router.get('/image/:filename', (req, res) => {
     });
 });
 
+router.get('/all-images', async (req, res) => {
+  try {
+    gfs.files.find().toArray((err, files) => {
+      // Check if files exist
+      if (!files || files.length === 0) {
+        return res.status(404).json({
+          message: 'No files exist'
+        });
+      }
+
+      // Return the list of files
+      return res.json(files);
+    });
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
+});
+
 export { upload };
 export default router;
