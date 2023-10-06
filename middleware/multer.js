@@ -9,21 +9,17 @@ const router = express.Router();
 
 let gfs;
 
-const initializeGfs = () => {
-  if (!mongoose.connection.readyState) {
-    return;
-  }
+mongoose.connection.once('open', () => {
+  // Initializing gfs once the MongoDB connection is open
   gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
     bucketName: 'uploads'
   });
-};
+});
 
 const upload = multer({ storage: storage });
 
 
 router.post('/upload', upload.single('image'), (req, res) => {
-  initializeGfs();
-
   if (req.file) {
     res.json({ imageUrl: `/image/${req.file.filename}` });
   } else {
@@ -32,8 +28,6 @@ router.post('/upload', upload.single('image'), (req, res) => {
 });
 
 router.get('/image/:filename', (req, res) => {
-  initializeGfs();
-
   if (!gfs) {
     return res.status(500).json({ error: 'Server is not ready yet. Please try again later.' });
   }
@@ -60,7 +54,6 @@ router.get('/image/:filename', (req, res) => {
 
 router.get('/all-images', async (req, res) => {
   console.log("Entering /all-images route...");
-  initializeGfs();
 
   if (!gfs || !gfs.files) {
     console.log("gfs or gfs.files is not defined.");
