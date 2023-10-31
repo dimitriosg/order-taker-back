@@ -13,7 +13,7 @@ const tableSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['FREE', 'OCCUPIED', 'RESERVED'],
+        enum: ['FREE', 'BUSY', 'RESERVED'],
         default: 'FREE'
     }
 });
