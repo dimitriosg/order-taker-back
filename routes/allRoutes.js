@@ -14,13 +14,10 @@ import { checkRole } from '../middleware/checkRole.js';
 import * as funcSOS from '../utils/funcSOS.js';
 import * as adminExc from '../utils/adminExc.js';
 
-// Dashboard imports
+// Dashboard imports (Orders + Tables + Menu)
 import dashAPI from './dashboard/dashAPI.js';
-import orderRoutes from './dashboard/orderRoutes.js';
-import tableRoutes from './dashboard/tableRoutes.js';
-
-// Orders + Menu imports
-import ordersRoutes from './ordersRoutes.js';
+import orderRoutes from './orderRoutes.js';
+import tableRoutes from './tableRoutes.js';
 import menuRoutes from './menuRoutes.js';
 import menuItemsRoutes from './menuItemsRoutes.js';
 
@@ -31,7 +28,7 @@ import { categories } from '../models/allMenuCategories.js';
 const router = express.Router();
 
 // Orders + Menu
-router.use('/api/orders', ordersRoutes);
+router.use('/api/orders', orderRoutes);
 router.use('/api/menu', menuRoutes);
 router.use('/api/menuItems', menuItemsRoutes); // + addMenuItem, removeMenuItem
 
