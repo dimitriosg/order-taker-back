@@ -74,6 +74,10 @@ router.patch('/:id/status', async (req, res) => {
 
 // Create new tables
 router.post('/create', async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "User not authenticated" });
+    }
+
     try {
         const { numberOfTables } = req.body;
         const tables = [];
