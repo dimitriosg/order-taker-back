@@ -73,7 +73,7 @@ router.patch('/:id/status', async (req, res) => {
 });
 
 // Create new tables
-router.post('/create', async (req, res) => {
+router.post('/creates', async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ success: false, message: "User not authenticated" });
     }
@@ -95,6 +95,10 @@ router.post('/create', async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: "Failed to create tables", error: error.message });
     }
+});
+
+router.post('/create', async (req, res) => {
+    return res.json(req.headers);
 });
 
 // Delete multiple tables
