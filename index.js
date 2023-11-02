@@ -7,14 +7,12 @@ import { app, httpServer } from './server.js';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import routes from './routes/allRoutes.js'; // for ALL ROUTES
 import { activityLogger } from './middleware/activityLogger.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
 
 
 dotenv.config();
-//const app = express();
 
 const PORT = process.env.PORT || 5000;
 const mongoURI = process.env.DATABASE_URL;

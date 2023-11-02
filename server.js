@@ -1,6 +1,7 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { join, dirname } from 'path';
@@ -23,6 +24,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Set up CORS
 //app.use(cors()); // Set up CORS
+
+// Use cookie-parser middleware right after setting up CORS
+app.use(cookieParser());
 
 // Use the multer routes
 app.use('/api', multerRoutes);
