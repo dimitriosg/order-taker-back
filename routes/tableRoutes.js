@@ -11,8 +11,7 @@ const router = express.Router();
 const getUTCDateFromTime = (timeStr) => {
     const currentUTCDate = new Date().toISOString().split('T')[0];
     return new Date(`${currentUTCDate}T${timeStr}:00Z`);
-  };
-
+};
 
 // Fetching all tables
 router.get('/', async (req, res) => {
@@ -47,7 +46,6 @@ router.get('/free', async (req, res) => {
         res.status(500).json({ message: "Failed to fetch free tables", error: error.message });
     }
 });
-
 
 
 // Create new tables
@@ -250,7 +248,6 @@ router.get('/stats', async (req, res) => {
     }
 });
 ///////////////////////////////////
-
 
 // Modifying Table Details (e.g., assigning a waiter or changing status):
 router.post('/modify/:tableId', async (req, res) => {
