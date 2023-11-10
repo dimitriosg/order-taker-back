@@ -28,7 +28,7 @@ const tableSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['free', 'busy', 'reserved'],
+        enum: ['free', 'busy', 'reserved', 'reserved-free', 'reserved-busy'],
         default: 'free'
     },
     waiterEmail: {

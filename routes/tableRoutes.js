@@ -21,15 +21,16 @@ router.get('/', async (req, res) => {
         const totalTables = tables.length;
         const freeTables = tables.filter(t => t.status === 'free').length;
         const busyTables = tables.filter(t => t.status === 'busy').length;
-        const reservedTables = tables.filter(t => t.status === 'reserved').length;
-
+        const reservedFreeTables = await Table.countDocuments({ status: 'reserved-free' });
+        const reservedBusyTables = await Table.countDocuments({ status: 'reserved-busy' });
+        
         res.status(200).json({
             tables,
             stats: {
                 totalTables,
                 freeTables,
                 busyTables,
-                reservedTables
+                reservedTables: reservedFreeTables + reservedBusyTables
             }
         });
     } catch (error) {
@@ -129,7 +130,8 @@ router.post('/reserve', async (req, res) => {
             return res.status(400).json({ message: 'Table is not available for reservation.' });
         }
 
-        tableToReserve.status = 'reserved';
+        // DEFATUL: Update the table status to "reserved"
+        tableToReserve.status = 'reserved-free';
 
         const reservedTime = reservedAt;
         const releaseTimeHours = parseInt(reservedAt.split(":")[0]) + Math.floor(holdingTime / 60);
@@ -160,7 +162,7 @@ router.post('/reserve', async (req, res) => {
 // Fetch all reserved tables
 router.get('/reserved', async (req, res) => {
     try {
-        const reservedTables = await Table.find({ status: 'reserved' });
+        const reservedTables = await Table.find({ status: /reserved/ });
         res.status(200).json(reservedTables);
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch reserved tables", error: error.message });
@@ -175,7 +177,7 @@ router.put('/modify-reservation/:tableId', async (req, res) => {
     try {
         const table = await Table.findById(tableId);
 
-        if (!table || table.status !== 'reserved') {
+        if (!table || !table.status.includes('reserved')) {
             return res.status(404).json({ message: 'Table not found or not reserved.' });
         }
 
@@ -202,10 +204,7 @@ router.put('/cancel-reservation/:tableId', async (req, res) => {
     try {
         const table = await Table.findByIdAndUpdate(tableId, {
             status: 'free',
-            name: null,
-            phone: null,
-            time: null,
-            holdingTime: null
+            reservation: {}  // Reset the reservation object
         }, { new: true });
 
         if (!table) {
@@ -268,11 +267,28 @@ router.patch('/:id/status', async (req, res) => {
     try {
         const { status } = req.body;
         const table = await Table.findById(req.params.id);
-        table.status = status;
+        if (!table) {
+            return res.status(404).json({ success: false, message: "Table not found" });
+        }
+        table.status = status.toLowerCase();
         await table.save();
         res.json({ success: true, table });
     } catch (error) {
+        console.error("Error updating table status:", error);
         res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Route to fetch a single table by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const table = await Table.findById(req.params.id);
+        if (!table) {
+            return res.status(404).json({ message: 'Table not found' });
+        }
+        res.json(table);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching table', error: error.message });
     }
 });
 
