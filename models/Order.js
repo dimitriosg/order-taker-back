@@ -19,7 +19,7 @@ const OrderSchema = new mongoose.Schema({
     required: true
   },
   waiterID: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User'
   },
   cashierID: {
@@ -39,13 +39,13 @@ const OrderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['created', 'sent', 'in-progress', 'ready', 'complete', 'cancelled'],
+    enum: ['pending', 'created', 'sent', 'in-progress', 'ready', 'complete', 'cancelled'],
     default: 'created'
   },
   statusLog: [
     {
       status: String,
-      changedBy: mongoose.Schema.Types.ObjectId,
+      changedBy: String,
       changedAt: Date
     }
   ]

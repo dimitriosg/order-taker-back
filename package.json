@@ -5,6 +5,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start-clean": "npm cache clean --force && npm install && npm start",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
